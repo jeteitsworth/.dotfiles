@@ -105,6 +105,7 @@ source $ZSH/oh-my-zsh.sh
 alias cat='bat'
 alias ls='lsd'
 alias top='gtop'
+alias fx='chmod u+x'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
