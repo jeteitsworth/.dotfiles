@@ -18,6 +18,9 @@ Custom zshrc file with ohmyzsh and plugins
 > [!IMPORTANT]
 > Running `setup_zsh` is required for zsh customizations in the .zshrc
 
+Once everythins is ready to go, run this to install the theme.
+
+`git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k`
 
 ## custom scripts
 Scripts I use to automate things that I want in $PATH
