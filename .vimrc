@@ -27,6 +27,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'mattn/vim-lsp-settings'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'vimwiki/vimwiki'
 
     " IA Writer Plugins
     Plug 'junegunn/goyo.vim'
