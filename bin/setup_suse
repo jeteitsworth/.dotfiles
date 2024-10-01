@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo zypper install curl zsh stow git && sudo zypper remove vim
+
