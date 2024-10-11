@@ -41,7 +41,8 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Nextcloud/org")
-(add-to-list 'org-agenda-files (expand-file-name "~/Nextcloud/org/journal"))
+(after! org
+  (add-to-list 'org-agenda-files (expand-file-name "~/Nextcloud/org/journal")))
 (setq org-journal-dir "~/Nextcloud/org/journal")
 (setq org-journal-file-type 'weekly)
 (setq org-journal-file-format "%Y%m%d.org")
