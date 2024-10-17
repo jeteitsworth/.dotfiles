@@ -3,8 +3,9 @@
 ## Managed
 - git
 - vim
-- zsh
-- custom scripts
+- i3
+- doom emacs
+- alacritty
 
 ### git
 Git config file with primary branch renamed to main
@@ -12,22 +13,11 @@ Git config file with primary branch renamed to main
 ### vim
 Custom vimrc that installs Plug when vim is opened
 
-### zsh
-Custom zshrc file with ohmyzsh and plugins
+### i3
+i3 config that fixes the movement bindings to match vim
 
-> [!IMPORTANT]
-> Running `setup_zsh` is required for zsh customizations in the .zshrc
-
-Once everythins is ready to go, run this to install the theme.
-
-`git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k`
-
-## custom scripts
-Scripts I use to automate things that I want in $PATH
-
-- `setup_zsh`: installs zsh and ohmyzsh with instructions to install plugins
-- `install_brew`: installs brew package manager
-- `install_deps`: uses brew to install commonly used deps
+### doom emacs
+All my settings and plugins for writing books in org mode
 
 ## Usage
 This repo is designed to manage dotfiles with [GNU Stow per this article](https://tamerlan.dev/how-i-manage-my-dotfiles-using-gnu-stow/)
