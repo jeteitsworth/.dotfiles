@@ -65,6 +65,9 @@
 
 (load-file (concat (file-name-as-directory user-emacs-directory) "ews.el"))
 
+;; Load my functions
+(load-file (concat (file-name-as-directory user-emacs-directory) "jet.el"))
+
 ;; Check for missing external software
 ;;
 ;; - soffice (LibreOffice): View and create office documents
