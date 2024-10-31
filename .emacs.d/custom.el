@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(magit ox-epub markdown-mode fountain-mode lorem-ipsum titlecase writegood-mode powerthesaurus undo-tree olivetti denote-explore citar-denote consult-notes denote openwith emms org-web-tools elfeed-org elfeed citar biblio nov consult org-modern org-fragtog org-appear helpful which-key marginalia orderless vertico balanced-windows mixed-pitch modus-themes spacious-padding)))
+   '(evil magit ox-epub markdown-mode fountain-mode lorem-ipsum titlecase writegood-mode powerthesaurus undo-tree olivetti denote-explore citar-denote consult-notes denote openwith emms org-web-tools elfeed-org elfeed citar biblio nov consult org-modern org-fragtog org-appear helpful which-key marginalia orderless vertico balanced-windows mixed-pitch modus-themes spacious-padding)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

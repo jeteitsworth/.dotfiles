@@ -296,6 +296,12 @@
     :bind (("C-x g" . magit-status)
            ("C-x C-g" . magit-status)))
 
+;; Evil
+(use-package evil
+             :demand t
+             :config
+             (evil-mode 1))
+
 ;; INSPIRATION
 
 ;; Doc-View
