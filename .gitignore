@@ -1,3 +1,5 @@
 .emacs.d/elpa
 .emacs.d/backups
+.emacs.d/recentf
+.emacs.d/history
 __pycache__
