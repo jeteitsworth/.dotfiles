@@ -1,3 +1,17 @@
+#+title: Qtile Configuration
+#+author: James Teitsworth
+#+description: Window manager configured for my personal workflow.
+#+property: header-args :tangle config.py
+
+* Plans
+1. Implement color schemes from [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile][Derek Taylor / Dotfiles]]
+2. Review widgets
+3. Explore Qtile Extras from [[https://www.youtube.com/watch?v=BLUYTo6yfgI][Qtile "Extras" Gives You Even More Customization Options - YouTube]]
+
+* Imports
+Import python libraries
+
+#+BEGIN_SRC python
 import os
 import subprocess
 
@@ -6,21 +20,62 @@ from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+#+END_SRC
+
+* Startup
+Run a shell script that executes tasks like running apps the first time Qtile is loaded.
+
+#+BEGIN_SRC python
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call(home)
+#+END_SRC
 
+Run a shell script that executes tasks each time Qtile is loaded or reloaded.
+
+#+BEGIN_SRC python
 @hook.subscribe.startup
 def start():
     home = os.path.expanduser('~/.config/qtile/start.sh')
     subprocess.call(home)
+#+END_SRC
 
+* Variables
+Variables for my environment.
+
+#+BEGIN_SRC python
 mod = "mod4"
 terminal = "alacritty"
 editor = "emacsclient -c -a 'emacs' "
 browser = "vivaldi"
+#+END_SRC
 
+* Key bindings
+
+These are some of the highlights
+
+| Keys               | Command                           |
+|--------------------+-----------------------------------|
+| mod+Return         | Alacritty                         |
+| mod+d              | App runner                        |
+| mod+F2             | Launch browser                    |
+| mod+Tab            | Switch screen layout              |
+| mod+Space          | Switch focus between apps         |
+| mod+{#}            | Switch workspace                  |
+| mod+Shift+{#}      | Move focus app to workspace       |
+| mod+{motion}       | Switch focus in vim key direction |
+| mod+Shift+{motion} | Move focused in vim key direction |
+| mod+Shift+q        | Kill focused window               |
+| mod+Ctl+r          | Reload Qtile config               |
+| mod+Ctl+q          | Shutdown Qtile                    |
+| mod+e e            | Launch emacs                      |
+| mod+e a            | Launch music in emms              |
+| mod+e s            | Launch eshell in emacs            |
+| mod+e w            | Launch eww in emacs               |
+| mod+e f4           | Restart emacs daemon              |
+
+#+BEGIN_SRC python
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -79,7 +134,12 @@ keys = [
                       desc='Kill/restart the Emacs daemon')
     ])
 ]
+#+END_SRC
 
+* Workspace Groups
+Create workspace groups
+
+#+BEGIN_SRC python
 groups = []
 group_names = ["1", "2", "3", "4", "5"]
 group_labels = ["MAIN", "EMACS", "WEB", "MAIL", "MISC",]
@@ -112,7 +172,12 @@ for i in groups:
             ),
         ]
     )
+#+END_SRC
 
+* Layouts
+Most of these are disabled, but I'll leave them commented out in case I want to try them in the future.
+
+#+BEGIN_SRC python
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     layout.Max(),
@@ -128,14 +193,20 @@ layouts = [
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
+#+END_SRC
 
+* Widget Format
+#+BEGIN_SRC python
 widget_defaults = dict(
     font="GoMono Nerd Font",
     fontsize=18,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
+#+END_SRC
 
+* Widget Setup
+#+BEGIN_SRC python
 screens = [
     Screen(
         bottom=bar.Bar(
@@ -165,7 +236,11 @@ screens = [
         # x11_drag_polling_rate = 60,
     ),
 ]
+#+END_SRC
 
+* Floating Settings
+Settings mostly for floating windows including a matcher for apps that need to default to floating.
+#+BEGIN_SRC python
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
@@ -187,7 +262,7 @@ floating_layout = layout.Floating(
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
-        Match(wm_class="Plexamp"),  # Plexamp Player
+        Match(wm_class="plexamp"),  # Plexamp Player
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
     ]
@@ -195,7 +270,11 @@ floating_layout = layout.Floating(
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
+#+END_SRC
 
+* Misc Settings
+Settings for java, auto-fullscreen, cursor, etc.
+#+BEGIN_SRC python
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
 auto_minimize = True
@@ -216,3 +295,4 @@ wl_xcursor_size = 24
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+#+END_SRC
