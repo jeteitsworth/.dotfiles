@@ -38,6 +38,12 @@ def autostart():
     subprocess.call(home)
 
 
+@hook.subscribe.startup
+def start():
+    home = os.path.expanduser('~/.config/qtile/start.sh')
+    subprocess.call(home)
+
+
 mod = "mod4"
 terminal = guess_terminal()
 
