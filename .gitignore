@@ -2,4 +2,5 @@
 .emacs.d/backups
 .emacs.d/recentf
 .emacs.d/history
+.emacs.d/emms
 __pycache__
