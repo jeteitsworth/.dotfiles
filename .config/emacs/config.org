@@ -196,6 +196,7 @@ Lets face it...emacs is ugly af out of the box.
     (org-mode . mixed-pitch-mode))
 
   (use-package org
+    :ensure nil
     :custom
     (org-startup-indented t)
     (org-hide-emphasis-markers t)
