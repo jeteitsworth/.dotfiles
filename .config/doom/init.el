@@ -67,7 +67,7 @@
        word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
-       (dired +ranger +icons)
+       (dired +icons)
        electric          ; smarter, keyword-based electric-indent
        eww               ; the internet is gross
        ibuffer           ; interactive buffer management
@@ -156,7 +156,6 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org
-          +pretty
           +pandoc
           +present
           +hugo

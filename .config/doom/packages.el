@@ -11,3 +11,4 @@
 (package! org-notify)
 (package! denote)
 (package! nov)
+(package! org-modern)
