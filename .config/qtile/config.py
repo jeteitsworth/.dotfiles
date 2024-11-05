@@ -74,9 +74,7 @@ keys = [
         Key([], "a", lazy.spawn(editor + "--eval '(emms-play-directory-tree \"~/Music/\")'"), desc='Emacs EMMS'),
         Key([], "s", lazy.spawn(editor + "--eval '(eshell)'"), desc='Emacs Eshell'),
         Key([], "w", lazy.spawn(editor + "--eval '(eww \"duck.com\")'"), desc='Emacs EWW'),
-        Key([], "F4", lazy.spawn("killall emacs"),
-                      lazy.spawn("/usr/bin/emacs --daemon"),
-                      desc='Kill/restart the Emacs daemon')
+        Key([], "F4", lazy.spawn("killall emacs"), desc='Kill emacs daemon')
     ])
 ]
 

@@ -6,45 +6,47 @@
 
 * Load First
 ** Elpaca Package Manager
-#+begin_src emacs-lisp
-  (defvar elpaca-installer-version 0.4)
-  (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
-  (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-  (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
-  (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                                :ref nil
-                                :files (:defaults (:exclude "extensions"))
-                                :build (:not elpaca--activate-package)))
-  (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
-         (build (expand-file-name "elpaca/" elpaca-builds-directory))
-         (order (cdr elpaca-order))
-         (default-directory repo))
-    (add-to-list 'load-path (if (file-exists-p build) build repo))
-    (unless (file-exists-p repo)
-      (make-directory repo t)
-      (when (< emacs-major-version 28) (require 'subr-x))
-      (condition-case-unless-debug err
-          (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                   ((zerop (call-process "git" nil buffer t "clone"
-                                         (plist-get order :repo) repo)))
-                   ((zerop (call-process "git" nil buffer t "checkout"
-                                         (or (plist-get order :ref) "--"))))
-                   (emacs (concat invocation-directory invocation-name))
-                   ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                         "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                   ((require 'elpaca))
-                   ((elpaca-generate-autoloads "elpaca" repo)))
-              (kill-buffer buffer)
-            (error "%s" (with-current-buffer buffer (buffer-string))))
-        ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-    (unless (require 'elpaca-autoloads nil t)
-      (require 'elpaca)
-      (elpaca-generate-autoloads "elpaca" repo)
-      (load "./elpaca-autoloads")))
-  (add-hook 'after-init-hook #'elpaca-process-queues)
-  (elpaca `(,@elpaca-order))
 
-  ;; Install use-package support
+#+begin_src emacs-lisp
+
+(defvar elpaca-installer-version 0.8)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+			:ref nil
+			:files (:defaults (:exclude "extensions"))
+			:build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+ (build (expand-file-name "elpaca/" elpaca-builds-directory))
+ (order (cdr elpaca-order))
+ (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (< emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+  (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+	   ((zerop (call-process "git" nil buffer t "clone"
+				 (plist-get order :repo) repo)))
+	   ((zerop (call-process "git" nil buffer t "checkout"
+				 (or (plist-get order :ref) "--"))))
+	   (emacs (concat invocation-directory invocation-name))
+	   ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+				 "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+	   ((require 'elpaca))
+	   ((elpaca-generate-autoloads "elpaca" repo)))
+      (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+    (error "%s" (with-current-buffer buffer (buffer-string))))
+((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
+
+;; Install use-package support
 (elpaca elpaca-use-package
   ;; Enable :elpaca use-package keyword.
   (elpaca-use-package-mode)
@@ -60,6 +62,14 @@
 ;;For example:
 ;;(use-package general :demand t)
 ;;(elpaca-wait)
+
+;;Turns off elpaca-use-package-mode current declartion
+;;Note this will cause the declaration to be interpreted immediately (not deferred).
+;;Useful for configuring built-in emacs features.
+;;(use-package emacs :elpaca nil :config (setq ring-bell-function #'ignore))
+
+;; Don't install anything. Defer execution of BODY
+;;(elpaca nil (message "deferred"))
 
 #+end_src
 
@@ -78,14 +88,6 @@
     :config
     (setq evil-collection-mode-list '(dashboard dired ibuffer))
     (evil-collection-init))
-
-;;Turns off elpaca-use-package-mode current declartion
-;;Note this will cause the declaration to be interpreted immediately (not deferred).
-;;Useful for configuring built-in emacs features.
-(use-package emacs :elpaca nil :config (setq ring-bell-function #'ignore))
-
-;; Don't install anything. Defer execution of BODY
-(elpaca nil (message "deferred"))
 #+end_src
 
 ** General Keybindings
@@ -145,7 +147,7 @@ Lets face it...emacs is ugly af out of the box.
 
 ** Visual lines and numbers
 #+begin_src emacs-lisp
-  (global-display-line-numbers mode 1)
+  (global-display-line-numbers-mode 1)
   (global-visual-line-mode t)
 #+end_src
 
@@ -157,7 +159,7 @@ Lets face it...emacs is ugly af out of the box.
     (modus-themes-bold-constructs t)
     (modus-themes-mixed-fonts t)
     :init
-    (load-theme 'modus-vivendi-tinted :no-confirm)
+    (load-theme 'modus-vivendi-tinted :no-confirm))
 #+end_src
 
 * Which-Key
@@ -195,6 +197,7 @@ Lets face it...emacs is ugly af out of the box.
     :hook
     (org-mode . mixed-pitch-mode))
 
+<<<<<<< Updated upstream
   (use-package org
     :ensure nil
     :custom
@@ -208,6 +211,8 @@ Lets face it...emacs is ugly af out of the box.
     (org-id-link-to-org-use-id t)
     (org-fold-catch-invisible-edits 'show))
 
+=======
+>>>>>>> Stashed changes
   (use-package org-appear
     :hook
     (org-mode . org-appear-mode))
@@ -253,6 +258,7 @@ EWS has a fantastic setup for exporting org documents to ebook formats. I lifted
 
 #+begin_src emacs-lisp
 (use-package org
+  :ensure nil
   :custom
   (org-export-with-drawers nil)
   (org-export-with-todo-keywords nil)
@@ -320,6 +326,13 @@ EWS has a fantastic setup for exporting org documents to ebook formats. I lifted
        ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
 #+end_src
 
+** Disable Indent
+Default indentation in source code blocks is really freakin annoying. Especially when working with python.
+
+#+begin_src emacs-lisp
+(electric-indent-mode -1)
+#+end_src
+
 * Emacs for Everything
 Emacs can interface with all kinds of other services. Lets try to leave emacs as little as possible.
 
@@ -346,7 +359,7 @@ Emacs can interface with all kinds of other services. Lets try to leave emacs as
     :custom
     (elfeed-db-directory
      (expand-file-name "elfeed" user-emacs-directory))
-    (elfeed-show-entry-switch 'display-buffer)
+    (elfeed-show-entry-switch 'display-buffer))
 
   (use-package elfeed-org
   :config
