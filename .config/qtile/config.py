@@ -128,20 +128,21 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="GoMono Nerd Font",
-    fontsize=18,
+    font="Ubuntu Bold",
+    fontsize=11,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
+                widget.Volume(emoji="true", volume_app="pavucontrol", mute_command="amixer -c 1 set Master toggle"),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
