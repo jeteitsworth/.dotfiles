@@ -149,7 +149,7 @@ screens = [
                     format="{location_city}: {main_temp} °{units_temperature} {main_feels_like} {weather_details}"),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p", foreground="#00ff00"),
-                widget.QuickExit(),
+                widget.QuickExit(padding=10),
             ],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
