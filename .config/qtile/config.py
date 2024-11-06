@@ -129,7 +129,7 @@ layouts = [
 
 widget_defaults = dict(
     font="Ubuntu Bold",
-    fontsize=11,
+    fontsize=12,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
@@ -138,18 +138,15 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
+                widget.CurrentLayout(padding=10),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Volume(emoji="true", volume_app="pavucontrol", mute_command="amixer -c 1 set Master toggle"),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                widget.TextBox("JET's Config", name="default", foreground="#00ffff"),
+                widget.OpenWeather(
+                    zip="52601", 
+                    metric=False, 
+                    format="{location_city}: {main_temp} °{units_temperature} {main_feels_like} {weather_details}"),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p", foreground="#00ff00"),
                 widget.QuickExit(),

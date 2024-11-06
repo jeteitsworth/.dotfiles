@@ -5,3 +5,4 @@ picom --daemon &
 /usr/bin/emacs --daemon &
 nm-applet &
 nextcloud &
+syncthing &
