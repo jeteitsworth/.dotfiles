@@ -8,7 +8,7 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
-(package! org-notify)
+(package! org-alert)
 (package! denote)
 (package! nov)
 (package! org-modern)
