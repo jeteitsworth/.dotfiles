@@ -12,3 +12,4 @@
 (package! denote)
 (package! nov)
 (package! org-modern)
+(package! org-web-tools)
