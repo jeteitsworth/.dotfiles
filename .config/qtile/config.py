@@ -18,7 +18,7 @@ def start():
 
 mod = "mod4"
 terminal = "alacritty"
-editor = "emacsclient -c -a 'emacs' "
+editor = "emacsclient -c -a emacs "
 browser = "vivaldi"
 
 keys = [
@@ -71,7 +71,7 @@ keys = [
     Key([mod], "d", lazy.spawn("rofi -show drun"), desc="App Launcher"),
     KeyChord([mod],"e", [
         Key([], "e", lazy.spawn(editor), desc='Emacs Dashboard'),
-        Key([], "a", lazy.spawn(editor + "--eval '(emms-play-directory-tree \"~/Music/\")'"), desc='Emacs EMMS'),
+        Key([], "a", lazy.spawn(editor + "--eval '(emms-play-directory-tree \"home/james/Music\")'"), desc='Emacs EMMS'),
         Key([], "s", lazy.spawn(editor + "--eval '(eshell)'"), desc='Emacs Eshell'),
         Key([], "w", lazy.spawn(editor + "--eval '(eww \"duck.com\")'"), desc='Emacs EWW'),
         Key([], "F4", lazy.spawn("killall emacs"), desc='Kill emacs daemon')
@@ -143,6 +143,7 @@ screens = [
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Volume(emoji="true", volume_app="pavucontrol", mute_command="amixer -c 1 set Master toggle"),
+                widget.Battery(format="{char} {percent:2.0%}"),
                 widget.OpenWeather(
                     zip="52601", 
                     metric=False, 
