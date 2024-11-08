@@ -6,3 +6,4 @@ picom --daemon &
 nm-applet &
 nextcloud &
 syncthing &
+flameshot &
