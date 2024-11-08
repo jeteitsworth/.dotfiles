@@ -1,0 +1,18 @@
+#/bin/bash
+
+if [ -z "$1" ]; then
+    >&2 echo "Please pass a package name to append."
+    exit 1
+
+if [ -z "$2" ]; then
+    SETUP_FILE=/home/james/Sync/Scripts/arch_setup.sh
+else
+    SETUP_FILE=$2
+fi
+
+if [ $# -gt 2 ]; then
+    >&2 echo "Too many arguments. I don't know what to do."
+    exit 1
+fi
+
+echo -n "$1" >> $SETUP_FILE
