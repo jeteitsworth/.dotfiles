@@ -5,11 +5,15 @@
 (setq shell-file-name (executable-find "bash"))
 (setq doom-theme 'doom-tokyo-night)
 (setq display-line-numbers-type t)
+(setq org-directory "~/Nextcloud/org/")
+(setq +org-capture-todo-file "~/Nextcloud/org/todo.org")
+(setq +org-capture-notes-file "~/Nextcloud/org/inbox.org")
+(setq +org-capture-journal-file "~/Nextcloud/org/resources.org")
+(after! org
+      (setq org-todo-keywords
+      '((sequence "TODO(t)" "|" "DONE(d)" "SKIP(s)"))))
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
 
-(setq org-directory "~/org/")
 (use-package! org-modern
   :hook
   (org-mode . global-org-modern-mode)
@@ -27,6 +31,8 @@
 (use-package! org-web-tools
   :config
   (setq org-web-tools-pandoc-sleep-time 0.5))
+
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
