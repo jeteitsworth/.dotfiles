@@ -7,11 +7,11 @@
 Use -z to check if the first argument is blank. If it is we don't have a package name to add.
 
 #+BEGIN_SRC bash
-#/bin/bash
-
+#!/bin/bash
 if [ -z "$1" ]; then
     >&2 echo "Please pass a package name to append."
     exit 1
+fi
 #+END_SRC
 
 If the second argument is empty we'll use the default location of my arch setup package otherwise we'll use the second argument to set the path.
@@ -22,7 +22,6 @@ if [ -z "$2" ]; then
 else
     SETUP_FILE=$2
 fi
-
 #+END_SRC
 
 If there are somehow more than 2 arguments passed in something has gone wrong and we need to bail.
@@ -34,8 +33,12 @@ if [ $# -gt 2 ]; then
 fi
 #+END_SRC
 
-We use -n to suppress the newline so it appends to the existing line of packages in the file.
+We use -n to suppress the newline which is important so we don't start adding packages to new lines.
 
 #+BEGIN_SRC bash
-echo -n "$1" >> $SETUP_FILE
+CC=$(cat $SETUP_FILE | tr -d "\n")
+CC="$CC $1"
+echo -n $CC > $SETUP_FILE
 #+END_SRC
+
+#+RESULTS:

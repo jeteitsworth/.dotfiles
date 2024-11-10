@@ -1,8 +1,8 @@
-#/bin/bash
-
+#!/bin/bash
 if [ -z "$1" ]; then
     >&2 echo "Please pass a package name to append."
     exit 1
+fi
 
 if [ -z "$2" ]; then
     SETUP_FILE=/home/james/Sync/Scripts/arch_setup.sh
@@ -15,4 +15,6 @@ if [ $# -gt 2 ]; then
     exit 1
 fi
 
-echo -n "$1" >> $SETUP_FILE
+CC=$(cat $SETUP_FILE | tr -d "\n")
+CC="$CC $1"
+echo -n $CC > $SETUP_FILE
