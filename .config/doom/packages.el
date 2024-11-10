@@ -11,5 +11,6 @@
 (package! org-alert)
 (package! denote)
 (package! nov)
+(package! ox-epub)
 (package! org-modern)
 (package! org-web-tools)
