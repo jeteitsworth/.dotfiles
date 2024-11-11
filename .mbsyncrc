@@ -1,0 +1,23 @@
+IMAPStore jamesteitsworth-remote
+Host imappro.zoho.com
+Port 993
+User james@jamesteitsworth.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.mbsync-jamesteitsworth-pw.gpg"
+TLSType IMAPS
+AuthMechs LOGIN
+TLSVersions +1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore jamesteitsworth-local
+Subfolders Verbatim
+Path ~/mail/jamesteitsworth/
+INBOX ~/mail/jamesteitsworth/INBOX
+Flatten .
+
+Channel jamesteitsworth
+Far :jamesteitsworth-remote:
+Near :jamesteitsworth-local:
+Patterns INBOX Drafts Sent Trash
+SyncState *
+Create Both
+Expunge Both
