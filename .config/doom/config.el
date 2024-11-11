@@ -57,7 +57,6 @@
                       (mu4e-drafts-folder . "/jamesteitsworth/Drafts")
                       (mu4e-trash-folder . "/jamesteitsworth/Trash")
                       (smtpmail-default-smtp-server . "smtppro.zoho.com")
-                      (smtpmail-smtp-service . 587)
                       (smtpmail-smtp-user . "james@jamesteitsworth.com")
                       (mu4e-compose-signature . "---\nJames E. Teitsworth"))
                     t)

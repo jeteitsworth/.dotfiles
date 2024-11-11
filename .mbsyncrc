@@ -21,3 +21,4 @@ Patterns INBOX Drafts Sent Trash
 SyncState *
 Create Both
 Expunge Both
+MaxMessages 50
