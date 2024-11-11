@@ -5,6 +5,8 @@
 (setq shell-file-name (executable-find "bash"))
 (setq doom-theme 'doom-tokyo-night)
 (setq display-line-numbers-type t)
+
+;; Org-stuff
 (setq org-directory "~/Nextcloud/org/")
 (setq +org-capture-todo-file "~/Nextcloud/org/todo.org")
 (setq +org-capture-notes-file "~/Nextcloud/org/inbox.org")
@@ -13,7 +15,30 @@
       (setq org-todo-keywords
       '((sequence "TODO(t)" "|" "DONE(d)" "SKIP(s)"))))
 
+;; Org-capture templates
+(after! org
+  (setq org-capture-templates
+        '(("m" "Medical Appointment" entry (file+headline "~/Nextcloud/org/appointments.org" "Medical")
+           "* %? :medical:\n  %^T\n  %i"
+           :empty-lines 1)
 
+          ("p" "Personal Appointment" entry (file+headline "~/Nextcloud/org/appointments.org" "Personal")
+           "* %? :personal:\n  %^T\n  %i"
+           :empty-lines 1)
+
+          ("w" "Work Appointment" entry (file+headline "~/Nextcloud/org/appointments.org" "Work")
+           "* %? :work:\n  %^T\n  %i"
+           :empty-lines 1)
+
+          ("i" "Inbox note to refile" entry (file+headline "~/Nextcloud/org/inbox.org" "Inbox")
+           "* %?\n %U\n %i\n %a"
+           :empty-lines 1)
+
+          ("t" "Todo" entry (file+headline "~/Nextcloud/org/todo.org" "Tasks")
+           "* TODO %? %^G\n %i\n %a"
+           :empty-lines 1))))
+
+;; Specific package configs
 (use-package! org-modern
   :hook
   (org-mode . global-org-modern-mode)
@@ -47,6 +72,7 @@
                '("\\.\\(?:OD[CFIGPST]\\|od[cfigpst]\\)\\'"
                  . doc-view-mode-maybe)))
 
+;;mu4e settings
 (setq send-mail-function 'smtpmail-send-it)
 (setq smtpmail-smtp-server "smtppro.zoho.com")
 (setq smtpmail-smtp-service 465)
@@ -60,3 +86,4 @@
                       (smtpmail-smtp-user . "james@jamesteitsworth.com")
                       (mu4e-compose-signature . "---\nJames E. Teitsworth"))
                     t)
+
