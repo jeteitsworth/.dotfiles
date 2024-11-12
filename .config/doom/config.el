@@ -87,3 +87,16 @@
                       (mu4e-compose-signature . "---\nJames E. Teitsworth"))
                     t)
 
+;; keybindings
+(map! :leader
+      (:prefix ("J" . "JET Binds")
+               :desc "Export Org to HTML"
+               "e" #'org-html-export-to-html
+               :desc "Play Music Directory"
+               "f" #'emms-play-directory-tree
+               :desc "Shuffle music"
+               "s" #'emms-shuffle
+               :desc "Next track"
+               "n" #'emms-next
+               :desc "Last track"
+               "p" #'emms-previous))
