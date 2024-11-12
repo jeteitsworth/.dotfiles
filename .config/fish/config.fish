@@ -6,3 +6,5 @@ end
 test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
 
 set -x MANPAGER "less -R --use-color -Dd+r -Du+b"
+status --is-interactive; and rbenv init - --no-rehash fish | source
+
