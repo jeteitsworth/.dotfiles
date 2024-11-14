@@ -75,7 +75,7 @@
 ;;mu4e settings
 (setq send-mail-function 'smtpmail-send-it)
 (setq smtpmail-smtp-server "smtppro.zoho.com")
-(setq smtpmail-smtp-service 465)
+;(setq smtpmail-smtp-service 465)
 (setq smtpmail-stream-type 'ssl)
 
 (set-email-account! "jamesteitsworth"
@@ -83,6 +83,7 @@
                       (mu4e-drafts-folder . "/jamesteitsworth/Drafts")
                       (mu4e-trash-folder . "/jamesteitsworth/Trash")
                       (smtpmail-default-smtp-server . "smtppro.zoho.com")
+                      (smtpmail-smtp-service . 587)
                       (smtpmail-smtp-user . "james@jamesteitsworth.com")
                       (mu4e-compose-signature . "---\nJames E. Teitsworth"))
                     t)
