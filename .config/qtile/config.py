@@ -71,13 +71,6 @@ keys = [
     Key([mod], "d", lazy.spawn("rofi -show drun"), desc="App Launcher"),
     KeyChord([mod],"e", [
         Key([], "e", lazy.spawn(editor), desc='Emacs Dashboard'),
-<<<<<<< Updated upstream
-        Key([], "a", lazy.spawn(editor + "--eval '(emms-play-directory-tree \"home/james/Music\")'"), desc='Emacs EMMS'),
-=======
-        Key([], "a", lazy.spawn(editor + "-eval '(emms-play-directory-tree \"~/Music/\")'"), desc='Emacs EMMS'),
->>>>>>> Stashed changes
-        Key([], "s", lazy.spawn(editor + "--eval '(eshell)'"), desc='Emacs Eshell'),
-        Key([], "w", lazy.spawn(editor + "--eval '(eww \"duck.com\")'"), desc='Emacs EWW'),
         Key([], "F4", lazy.spawn("killall emacs"), desc='Kill emacs daemon')
     ])
 ]
