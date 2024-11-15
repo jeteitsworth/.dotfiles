@@ -99,5 +99,7 @@
                "s" #'emms-shuffle
                :desc "Next track"
                "n" #'emms-next
+               :desc "Read RSS"
+               "r" #'elfeed
                :desc "Last track"
                "p" #'emms-previous))
