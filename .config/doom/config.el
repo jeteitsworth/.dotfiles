@@ -3,9 +3,8 @@
 (setq user-full-name "James Teitsworth"
       user-mail-address "james@jamesteitsworth.com")
 (setq shell-file-name (executable-find "bash"))
-(setq doom-theme 'doom-tokyo-night)
+;;(setq doom-theme 'doom-tokyo-night)
 (setq display-line-numbers-type t)
-
 ;; Org-stuff
 (setq org-directory "~/Nextcloud/org/")
 (setq +org-capture-todo-file "~/Nextcloud/org/todo.org")
@@ -66,11 +65,59 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
-(use-package ox-odt
+(use-package! ox-odt
   :config
   (add-to-list 'auto-mode-alist
                '("\\.\\(?:OD[CFIGPST]\\|od[cfigpst]\\)\\'"
                  . doc-view-mode-maybe)))
+
+(use-package! modus-themes
+  :custom
+  (modus-themes-italic-constructs t)
+  (modus-themes-bold-constructs t)
+  (modus-themes-mixed-fonts t)
+  (modus-themes-toggle
+    '(modus-vivendi-tinted modus-operandi-tinted))
+  :init
+  (load-theme 'modus-vivendi-tinted :no-confirm))
+
+(use-package! mixed-pitch
+              :hook
+              (org-mode . mixed-pitch-mode))
+
+(use-package! text-mode
+              :hook
+              (text-mode . visual-line-mode)
+              :init
+              (delete-selection-mode t)
+              :custom
+              (sentence-end-double-space nil)
+              (scroll-error-top-bottom t)
+              (save-interprogram-paste-before-kill t))
+
+(use-package! orderless
+              :custom
+              (completion-styles '(orderless basic))
+              (completion-category-defaults nil)
+              (completion-category-overrides
+                '((file (styles partial-completion)))))
+
+(use-package! denote
+              :defer t
+              :custom
+              (denote-sort-keywords t)
+              (denote-link-description-function #'ews-denote-link-description-title-case)
+              :hook
+              (dired-mode . denote-dired-mode)
+              :custom-face
+              (denote-faces-link ((t (:slant italic))))
+              :init
+              (require 'denote-org-extras))
+
+(use-package! denote-explore)
+(use-package! consult-notes
+              :init
+              (consult-notes-denote-mode))
 
 ;;mu4e settings
 (setq send-mail-function 'smtpmail-send-it)
@@ -103,3 +150,48 @@
                "r" #'elfeed
                :desc "Last track"
                "p" #'emms-previous))
+(map! :leader
+      (:prefix ("D" . "Denote Binds")
+               :desc "Find backlink"
+               "b" #'denote-find-banklink
+               :desc "Date"
+               "d" #'denote-date
+               (:prefix ("e" . "Explore")
+                        :desc "Count notes"
+                        "c" #'denote-explore-count-notes
+                        "C" #'denote-explore-count-keywords
+                        "b" #'denote-explore-barchart-keywords
+                        "e" #'denote-explore-barchart-filetypes
+                        "r" #'denote-explore-random-note
+                        "l" #'denote-explore-random-link
+                        "k" #'denote-explore-random-keyword
+                        "x" #'denote-explore-random-regex
+                        "d" #'denote-explore-identify-duplicate-notes
+                        "z" #'denote-explore-zero-keywords
+                        "s" #'denote-explore-single-keywords
+                        "o" #'denote-explore-sort-keywords
+                        "w" #'denote-explore-rename-keyword
+                        "n" #'denote-explore-network
+                        "v" #'denote-explore-network-regenerate
+                        "D" #'denote-explore-degree-barchart)
+               :desc "Find Link"
+               "l" #'denote-find-link
+               :desc "Link to heading"
+               "h" #'denote-org-extras-link-to-heading
+               :desc "Link or create"
+               "i" #'denote-link-or-create
+               :desc "Rename file keywords"
+               "k" #'denote-rename-file-keywords
+               :desc "Insert link"
+               "l" #'denote-insert-link
+               :desc "Denote"
+               "n" #'denote
+               :desc "Denote rename file"
+               "r" #'denote-rename-file
+               :desc "Denote rename file using front matter"
+               "R" #'denote-rename-file-using-front-matter))
+
+(after! emms
+(map! "<XF86AudioPrev>" emms-previous)
+(Map! "<XF86AudioNext>" emms-next)
+(map! "<XF86AudioPlay>" emms-pause))

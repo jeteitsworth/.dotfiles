@@ -14,3 +14,7 @@
 (package! ox-epub)
 (package! org-modern)
 (package! org-web-tools)
+(package! modus-themes)
+(package! denote)
+(package! denote-explore)
+(package! consult-notes)
