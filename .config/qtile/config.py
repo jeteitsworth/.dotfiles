@@ -4,7 +4,6 @@ import subprocess
 from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
 
 @hook.subscribe.startup_once
 def autostart():
@@ -20,6 +19,8 @@ mod = "mod4"
 terminal = "alacritty"
 editor = "emacsclient -c -a emacs "
 browser = "vivaldi"
+has_battery = os.path.isfile('/sys/class/power_supply/BAT0')
+
 
 keys = [
     # A list of available commands that can be bound to keys can be found
