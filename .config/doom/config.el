@@ -1,5 +1,4 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
 (setq user-full-name "James Teitsworth"
       user-mail-address "james@jamesteitsworth.com")
 (setq shell-file-name (executable-find "bash"))
@@ -147,7 +146,7 @@
                :desc "Next track"
                "n" #'emms-next
                :desc "Read RSS"
-               "r" #'elfeed
+               "r" #'(lambda() (interactive) (elfeed elfeed-update))
                :desc "Last track"
                "p" #'emms-previous))
 (map! :leader
@@ -195,3 +194,21 @@
 (map! "<XF86AudioPrev>" emms-previous)
 (Map! "<XF86AudioNext>" emms-next)
 (map! "<XF86AudioPlay>" emms-pause))
+
+(setq org-publish-project-alist
+      '(
+
+  ("org-jekyll-author"
+          ;; Path to your org files.
+          :base-directory "~/code/jekyll-author/org/"
+          :base-extension "org"
+
+          ;; Path to your Jekyll project.
+          :publishing-directory "~/code/jekyll-author/jekyll/"
+          :recursive t
+          :publishing-function org-html-publish-to-html
+          :headline-levels 4
+          :html-extension "html"
+          :body-only t ;; Only export section between <body> </body>
+    )
+))
