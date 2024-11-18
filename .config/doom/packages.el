@@ -18,3 +18,4 @@
 (package! denote)
 (package! denote-explore)
 (package! consult-notes)
+(package! org-pomodoro)

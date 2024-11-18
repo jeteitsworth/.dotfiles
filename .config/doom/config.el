@@ -106,6 +106,7 @@
               :custom
               (denote-sort-keywords t)
               (denote-link-description-function #'ews-denote-link-description-title-case)
+              (denote-directory "~/Nextcloud/notes/")
               :hook
               (dired-mode . denote-dired-mode)
               :custom-face
