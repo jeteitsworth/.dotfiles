@@ -19,12 +19,13 @@ mod = "mod4"
 terminal = "alacritty"
 editor = "emacsclient -c -a emacs "
 browser = "vivaldi"
-has_battery = os.path.isfile('/sys/class/power_supply/BAT0')
+has_battery = os.path.islink('/sys/class/power_supply/BAT0')
+screen_lock = "slock"
 
 
 keys = [
-    # A list of available commands that can be bound to keys can be found
-    # at https://docs.qtile.org/en/latest/manual/config/lazy.html
+    # Custom
+    Key([mod], "delete", lazy.spawn(screen_lock), desc="Lock Screen"),
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -132,24 +133,27 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
-                widget.CurrentLayout(padding=10),
-                widget.GroupBox(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Volume(emoji="true", volume_app="pavucontrol", mute_command="amixer -c 1 set Master toggle"),
-                widget.Battery(format="{char} {percent:2.0%}"),
+widgetList = []
+widgetList.append(widget.CurrentLayout(padding=10))
+widgetList.append(widget.GroupBox())
+widgetList.append(widget.Prompt())
+widgetList.append(widget.WindowName())
+widgetList.append(widget.Volume(emoji="true", volume_app="pavucontrol", mute_command="amixer -c 1 set Master toggle"))
+if has_battery:
+    widgetList.append(widget.Battery(format="{char} {percent:2.0%}"))
+widgetList.append(
                 widget.OpenWeather(
                     zip="52601", 
                     metric=False, 
-                    format="{location_city}: {main_temp} °{units_temperature} {main_feels_like} {weather_details}"),
-                widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p", foreground="#00ff00"),
-                widget.QuickExit(padding=10),
-            ],
+                    format="{location_city}: {main_temp} °{units_temperature} {main_feels_like} {weather_details}"))
+widgetList.append(widget.Systray())
+widgetList.append(widget.Clock(format="%Y-%m-%d %a %I:%M %p", foreground="#00ff00"))
+widgetList.append(widget.QuickExit(padding=10))
+
+screens = [
+    Screen(
+        top=bar.Bar(
+            widgetList,
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
