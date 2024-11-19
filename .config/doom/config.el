@@ -119,6 +119,9 @@
               :init
               (consult-notes-denote-mode))
 
+(after! ox-hugo
+  (setq org-hugo-front-matter-format "yaml"))
+
 ;;mu4e settings
 (setq send-mail-function 'smtpmail-send-it)
 (setq smtpmail-smtp-server "smtppro.zoho.com")
@@ -147,7 +150,7 @@
                :desc "Next track"
                "n" #'emms-next
                :desc "Read RSS"
-               "r" #'(lambda() (interactive) (elfeed elfeed-update))
+               "r" #'elfeed
                :desc "Last track"
                "p" #'emms-previous))
 (map! :leader
@@ -193,7 +196,7 @@
 
 (after! emms
 (map! "<XF86AudioPrev>" emms-previous)
-(Map! "<XF86AudioNext>" emms-next)
+(map! "<XF86AudioNext>" emms-next)
 (map! "<XF86AudioPlay>" emms-pause))
 
 (setq org-publish-project-alist
@@ -212,4 +215,11 @@
           :html-extension "html"
           :body-only t ;; Only export section between <body> </body>
     )
-))
+    ("assets-jekyll-author"
+          :base-directory "~/code/jekyll-author/org/"
+          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|opus"
+          :publishing-directory "~/code/jekyll-author/jekyll/"
+          :recursive t
+          :publishing-function org-publish-attachment)
+
+    ("jeteitsworth.com" :components ("org-jekyll-author" "assets-jekyll-author"))))
