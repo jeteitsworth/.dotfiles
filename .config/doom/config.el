@@ -3,6 +3,9 @@
       user-mail-address "james@jamesteitsworth.com")
 (setq shell-file-name (executable-find "bash"))
 ;;(setq doom-theme 'doom-tokyo-night)
+(setq doom-font (font-spec :family "GoMono Nerd Font Mono" :size 14)
+      doom-variable-pitch-font (font-spec :family "Noto Sans Nerd Font" :size 14)
+      doom-big-font (font-spec :family "GoMono Nerd Font Mono" :size 24))
 (setq display-line-numbers-type t)
 ;; Org-stuff
 (setq org-directory "~/Nextcloud/org/")
@@ -101,6 +104,12 @@
               (completion-category-overrides
                 '((file (styles partial-completion)))))
 
+(use-package! emms
+  :bind
+  ("<XF86AudioPrev>" . emms-previous)
+  ("<XF86AudioNext>" . emms-next)
+  ("<XF86AudioPlay>" . emms-pause))
+
 (use-package! denote
               :defer t
               :custom
@@ -115,6 +124,7 @@
               (require 'denote-org-extras))
 
 (use-package! denote-explore)
+
 (use-package! consult-notes
               :init
               (consult-notes-denote-mode))
@@ -137,6 +147,8 @@
                       (smtpmail-smtp-user . "james@jamesteitsworth.com")
                       (mu4e-compose-signature . "---\nJames E. Teitsworth"))
                     t)
+
+
 
 ;; keybindings
 (map! :leader
@@ -193,11 +205,6 @@
                "r" #'denote-rename-file
                :desc "Denote rename file using front matter"
                "R" #'denote-rename-file-using-front-matter))
-
-(after! emms
-(map! "<XF86AudioPrev>" emms-previous)
-(map! "<XF86AudioNext>" emms-next)
-(map! "<XF86AudioPlay>" emms-pause))
 
 (setq org-publish-project-alist
       '(
