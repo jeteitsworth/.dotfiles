@@ -25,7 +25,20 @@ screen_lock = "slock"
 
 keys = [
     # Custom
+    ## Make multimedia control keys work
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 1- unmute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 sset Master 1+ unmute")),
+
+    ## Emacs
+    KeyChord([mod],"e", [
+        Key([], "e", lazy.spawn(editor), desc='Emacs Dashboard'),
+        Key([], "F4", lazy.spawn("killall emacs"), desc='Kill emacs daemon')
+    ]),
+
+    ## Screen lock
     Key([mod], "delete", lazy.spawn(screen_lock), desc="Lock Screen"),
+
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -71,10 +84,6 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "d", lazy.spawn("rofi -show drun"), desc="App Launcher"),
-    KeyChord([mod],"e", [
-        Key([], "e", lazy.spawn(editor), desc='Emacs Dashboard'),
-        Key([], "F4", lazy.spawn("killall emacs"), desc='Kill emacs daemon')
-    ])
 ]
 
 groups = []
