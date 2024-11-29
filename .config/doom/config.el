@@ -162,7 +162,12 @@
                :desc "Next track"
                "n" #'emms-next
                :desc "Read RSS"
-               "r" #'elfeed
+               (:prefix ("r" . "RSS")
+                        :desc "Elfeed"
+                        "r" #'elfeed
+                        :desc "Update Feeds"
+                        "u" #'elfeed-update
+                        )
                :desc "Last track"
                "p" #'emms-previous))
 (map! :leader
