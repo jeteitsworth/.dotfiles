@@ -1,6 +1,7 @@
 import os
 import subprocess
 import requests
+import colors
 
 from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
@@ -24,6 +25,7 @@ editor = "emacsclient -c -a emacs "
 browser = "vivaldi"
 has_battery = os.path.islink('/sys/class/power_supply/BAT0')
 screen_lock = "slock"
+color_scheme = colors.GruvboxDark
 
 
 keys = [
@@ -156,19 +158,19 @@ widgetList.append(widget.CurrentLayout(padding=10))
 widgetList.append(widget.GroupBox())
 widgetList.append(widget.Prompt())
 widgetList.append(widget.WindowName())
-widgetList.append(widget.Volume(emoji="true", volume_app="pavucontrol", mute_command="amixer -c 1 set Master toggle"))
+widgetList.append(widget.Volume(emoji="true", volume_app="pavucontrol", mute_command="amixer -c 1 set Master toggle", background=color_scheme[0]))
 if has_battery:
-    widgetList.append(widget.Battery(format="{char} {percent:2.0%}"))
+    widgetList.append(widget.Battery(format="{char} {percent:2.0%}", background=color_scheme[5]))
 widgetList.append(
                 widget.OpenWeather(
-                    background="555555",
+                    background=color_scheme[6],
                     zip="52601", 
                     metric=False, 
                     format="{location_city}: {main_temp} °{units_temperature} {main_feels_like} {weather_details}",
                     **powerline))
-widgetList.append(widget.Systray(background="444444", **powerline))
-widgetList.append(widget.Clock(format="%b-%d %I:%M %p", foreground="#00ff00", background="555555", **powerline))
-widgetList.append(widget.QuickExit(padding=10, background="666666"))
+widgetList.append(widget.Systray(background=color_scheme[3], **powerline))
+widgetList.append(widget.Clock(format="%b-%d %I:%M %p", foreground="#00ff00", background=color_scheme[0], **powerline))
+widgetList.append(widget.QuickExit(padding=10, background=color_scheme[2]))
 
 screens = [
     Screen(
