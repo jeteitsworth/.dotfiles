@@ -1,9 +1,12 @@
 import os
 import subprocess
+import requests
 
 from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
+from qtile_extras import widget
+from qtile_extras.widget.decorations import PowerLineDecoration
 
 @hook.subscribe.startup_once
 def autostart():
@@ -118,6 +121,11 @@ for i in groups:
             ),
         ]
     )
+powerline = {
+    "decorations": [
+        PowerLineDecoration()
+    ]
+}
 
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
@@ -140,6 +148,7 @@ widget_defaults = dict(
     fontsize=12,
     padding=3,
 )
+
 extension_defaults = widget_defaults.copy()
 
 widgetList = []
@@ -152,12 +161,14 @@ if has_battery:
     widgetList.append(widget.Battery(format="{char} {percent:2.0%}"))
 widgetList.append(
                 widget.OpenWeather(
+                    background="555555",
                     zip="52601", 
                     metric=False, 
-                    format="{location_city}: {main_temp} °{units_temperature} {main_feels_like} {weather_details}"))
-widgetList.append(widget.Systray())
-widgetList.append(widget.Clock(format="%Y-%m-%d %a %I:%M %p", foreground="#00ff00"))
-widgetList.append(widget.QuickExit(padding=10))
+                    format="{location_city}: {main_temp} °{units_temperature} {main_feels_like} {weather_details}",
+                    **powerline))
+widgetList.append(widget.Systray(background="444444", **powerline))
+widgetList.append(widget.Clock(format="%b-%d %I:%M %p", foreground="#00ff00", background="555555", **powerline))
+widgetList.append(widget.QuickExit(padding=10, background="666666"))
 
 screens = [
     Screen(
