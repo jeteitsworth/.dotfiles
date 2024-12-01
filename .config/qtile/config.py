@@ -158,17 +158,17 @@ widgetList.append(widget.CurrentLayout(padding=10))
 widgetList.append(widget.GroupBox())
 widgetList.append(widget.Prompt())
 widgetList.append(widget.WindowName())
-widgetList.append(widget.Volume(emoji="true", volume_app="pavucontrol", mute_command="amixer -c 1 set Master toggle", background=color_scheme[0]))
+widgetList.append(widget.Volume(emoji="true", volume_app="gnome-alsamixer", mute_command="amixer -c 1 set Master toggle", background=color_scheme[2], **powerline))
 if has_battery:
     widgetList.append(widget.Battery(format="{char} {percent:2.0%}", background=color_scheme[5]))
 widgetList.append(
                 widget.OpenWeather(
-                    background=color_scheme[6],
+                    background=color_scheme[3],
                     zip="52601", 
                     metric=False, 
                     format="{location_city}: {main_temp} °{units_temperature} {main_feels_like} {weather_details}",
                     **powerline))
-widgetList.append(widget.Systray(background=color_scheme[3], **powerline))
+widgetList.append(widget.Systray(background=color_scheme[2], **powerline))
 widgetList.append(widget.Clock(format="%b-%d %I:%M %p", foreground="#00ff00", background=color_scheme[0], **powerline))
 widgetList.append(widget.QuickExit(padding=10, background=color_scheme[2]))
 
