@@ -160,7 +160,7 @@ widgetList.append(widget.Prompt())
 widgetList.append(widget.WindowName())
 widgetList.append(widget.Volume(emoji="true", volume_app="gnome-alsamixer", mute_command="amixer -c 1 set Master toggle", background=color_scheme[2], **powerline))
 if has_battery:
-    widgetList.append(widget.Battery(format="{char} {percent:2.0%}", background=color_scheme[5]))
+    widgetList.append(widget.Battery(format="{char} {percent:2.0%}", background=color_scheme[5], **powerline))
 widgetList.append(
                 widget.OpenWeather(
                     background=color_scheme[3],
