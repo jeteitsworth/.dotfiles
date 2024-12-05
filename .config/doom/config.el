@@ -31,6 +31,14 @@
            "* %? :work:\n  %^T\n  %i"
            :empty-lines 1)
 
+          ("n" "New note (with Denote)" plain
+           (file denote-last-path)
+           #'denote-org-capture
+           :no-save t
+           :immediate-finish nil
+           :kill-buffer t
+           :jump-to-captured t)
+
           ("i" "Inbox note to refile" entry (file+headline "~/Nextcloud/org/inbox.org" "Inbox")
            "* %?\n %U\n %i\n %a"
            :empty-lines 1)
@@ -56,7 +64,7 @@
 
 (use-package! org-web-tools
   :config
-  (setq org-web-tools-pandoc-sleep-time 0.5))
+  (setq org-web-tools-pandoc-sleep-time 0.9))
 
 (use-package! doc-view
   :custom
@@ -235,3 +243,10 @@
           :publishing-function org-publish-attachment)
 
     ("jeteitsworth.com" :components ("org-jekyll-author" "assets-jekyll-author"))))
+
+(after! circe
+  (set-irc-server! "localhost"
+  `(:tls nil
+    :port 6667
+    :nick "jet"
+    :channels("#Owners-of-a-Petting-Zoo"))))
