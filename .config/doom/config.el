@@ -12,6 +12,7 @@
 (setq +org-capture-todo-file "~/Nextcloud/org/todo.org")
 (setq +org-capture-notes-file "~/Nextcloud/org/inbox.org")
 (setq +org-capture-journal-file "~/Nextcloud/org/resources.org")
+(setq org-agenda-files '("~/Nextcloud/org"))
 (after! org
       (setq org-todo-keywords
       '((sequence "TODO(t)" "|" "DONE(d)" "SKIP(s)"))))
@@ -30,14 +31,6 @@
           ("w" "Work Appointment" entry (file+headline "~/Nextcloud/org/appointments.org" "Work")
            "* %? :work:\n  %^T\n  %i"
            :empty-lines 1)
-
-          ("n" "New note (with Denote)" plain
-           (file denote-last-path)
-           #'denote-org-capture
-           :no-save t
-           :immediate-finish nil
-           :kill-buffer t
-           :jump-to-captured t)
 
           ("i" "Inbox note to refile" entry (file+headline "~/Nextcloud/org/inbox.org" "Inbox")
            "* %?\n %U\n %i\n %a"
@@ -118,25 +111,6 @@
   ("<XF86AudioNext>" . emms-next)
   ("<XF86AudioPlay>" . emms-pause))
 
-(use-package! denote
-              :defer t
-              :custom
-              (denote-sort-keywords t)
-              (denote-link-description-function #'ews-denote-link-description-title-case)
-              (denote-directory "~/Nextcloud/notes/")
-              :hook
-              (dired-mode . denote-dired-mode)
-              :custom-face
-              (denote-faces-link ((t (:slant italic))))
-              :init
-              (require 'denote-org-extras))
-
-(use-package! denote-explore)
-
-(use-package! consult-notes
-              :init
-              (consult-notes-denote-mode))
-
 (after! ox-hugo
   (setq org-hugo-front-matter-format "yaml"))
 
@@ -178,46 +152,6 @@
                         )
                :desc "Last track"
                "p" #'emms-previous))
-(map! :leader
-      (:prefix ("D" . "Denote Binds")
-               :desc "Find backlink"
-               "b" #'denote-find-banklink
-               :desc "Date"
-               "d" #'denote-date
-               (:prefix ("e" . "Explore")
-                        :desc "Count notes"
-                        "c" #'denote-explore-count-notes
-                        "C" #'denote-explore-count-keywords
-                        "b" #'denote-explore-barchart-keywords
-                        "e" #'denote-explore-barchart-filetypes
-                        "r" #'denote-explore-random-note
-                        "l" #'denote-explore-random-link
-                        "k" #'denote-explore-random-keyword
-                        "x" #'denote-explore-random-regex
-                        "d" #'denote-explore-identify-duplicate-notes
-                        "z" #'denote-explore-zero-keywords
-                        "s" #'denote-explore-single-keywords
-                        "o" #'denote-explore-sort-keywords
-                        "w" #'denote-explore-rename-keyword
-                        "n" #'denote-explore-network
-                        "v" #'denote-explore-network-regenerate
-                        "D" #'denote-explore-degree-barchart)
-               :desc "Find Link"
-               "l" #'denote-find-link
-               :desc "Link to heading"
-               "h" #'denote-org-extras-link-to-heading
-               :desc "Link or create"
-               "i" #'denote-link-or-create
-               :desc "Rename file keywords"
-               "k" #'denote-rename-file-keywords
-               :desc "Insert link"
-               "l" #'denote-insert-link
-               :desc "Denote"
-               "n" #'denote
-               :desc "Denote rename file"
-               "r" #'denote-rename-file
-               :desc "Denote rename file using front matter"
-               "R" #'denote-rename-file-using-front-matter))
 
 (setq org-publish-project-alist
       '(

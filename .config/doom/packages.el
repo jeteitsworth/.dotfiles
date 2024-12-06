@@ -9,13 +9,9 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 (package! org-alert)
-(package! denote)
 (package! nov)
 (package! ox-epub)
 (package! org-modern)
 (package! org-web-tools)
 (package! modus-themes)
-(package! denote)
-(package! denote-explore)
-(package! consult-notes)
 (package! org-pomodoro)
