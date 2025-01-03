@@ -7,6 +7,7 @@
       doom-variable-pitch-font (font-spec :family "Noto Sans Nerd Font" :size 14)
       doom-big-font (font-spec :family "GoMono Nerd Font Mono" :size 24))
 (setq display-line-numbers-type t)
+
 ;; Org-stuff
 (setq org-directory "~/Nextcloud/org/")
 (setq +org-capture-todo-file "~/Nextcloud/org/todo.org")
@@ -16,6 +17,10 @@
 (after! org
       (setq org-todo-keywords
       '((sequence "TODO(t)" "|" "DONE(d)" "SKIP(s)"))))
+
+;;Org Roam
+(setq org-roam-directory (file-truename "~/Nextcloud/roam_notes/"))
+(org-roam-db-autosync-mode)
 
 ;; Org-capture templates
 (after! org
@@ -41,6 +46,7 @@
            :empty-lines 1))))
 
 ;; Specific package configs
+(use-package! org-make-toc)
 (use-package! org-modern
   :hook
   (org-mode . global-org-modern-mode)
@@ -178,9 +184,16 @@
 
     ("jeteitsworth.com" :components ("org-jekyll-author" "assets-jekyll-author"))))
 
+;; Access IRC -> Telegram Bridge
 (after! circe
   (set-irc-server! "localhost"
   `(:tls nil
     :port 6667
     :nick "jet"
     :channels("#Owners-of-a-Petting-Zoo"))))
+
+;; Custom timestamp function
+(defun now()
+  "Insert string for the current time."
+  (interactive)
+  (insert (format-time-string "%D %-I:%M %p")))

@@ -15,3 +15,4 @@
 (package! org-web-tools)
 (package! modus-themes)
 (package! org-pomodoro)
+(package! org-make-toc)
