@@ -2,10 +2,6 @@
 (setq user-full-name "James Teitsworth"
       user-mail-address "james@jamesteitsworth.com")
 (setq shell-file-name (executable-find "bash"))
-;;(setq doom-theme 'doom-tokyo-night)
-(setq doom-font (font-spec :family "GoMono Nerd Font Mono" :size 14)
-      doom-variable-pitch-font (font-spec :family "Noto Sans Nerd Font" :size 14)
-      doom-big-font (font-spec :family "GoMono Nerd Font Mono" :size 24))
 (setq display-line-numbers-type t)
 
 ;; Org-stuff
@@ -17,10 +13,6 @@
 (after! org
       (setq org-todo-keywords
       '((sequence "TODO(t)" "|" "DONE(d)" "SKIP(s)"))))
-
-;;Org Roam
-(setq org-roam-directory (file-truename "~/Nextcloud/roam_notes/"))
-(org-roam-db-autosync-mode)
 
 ;; Org-capture templates
 (after! org
@@ -120,31 +112,13 @@
 (after! ox-hugo
   (setq org-hugo-front-matter-format "yaml"))
 
-;;mu4e settings
-(setq send-mail-function 'smtpmail-send-it)
-(setq smtpmail-smtp-server "smtppro.zoho.com")
-;(setq smtpmail-smtp-service 465)
-(setq smtpmail-stream-type 'ssl)
-
-(set-email-account! "jamesteitsworth"
-                    '((mu4e-sent-folder . "/jamesteitsworth/Sent")
-                      (mu4e-drafts-folder . "/jamesteitsworth/Drafts")
-                      (mu4e-trash-folder . "/jamesteitsworth/Trash")
-                      (smtpmail-default-smtp-server . "smtppro.zoho.com")
-                      (smtpmail-smtp-service . 587)
-                      (smtpmail-smtp-user . "james@jamesteitsworth.com")
-                      (mu4e-compose-signature . "---\nJames E. Teitsworth"))
-                    t)
-
-
-
 ;; keybindings
 (map! :leader
       (:prefix ("J" . "JET Binds")
                :desc "Export Org to HTML"
                "e" #'org-html-export-to-html
                :desc "Play Music Directory"
-               "f" #'emms-play-directory-tree
+               "f" #'emms-play-directory
                :desc "Shuffle music"
                "s" #'emms-shuffle
                :desc "Next track"
@@ -159,38 +133,6 @@
                :desc "Last track"
                "p" #'emms-previous))
 
-(setq org-publish-project-alist
-      '(
-
-  ("org-jekyll-author"
-          ;; Path to your org files.
-          :base-directory "~/code/jekyll-author/org/"
-          :base-extension "org"
-
-          ;; Path to your Jekyll project.
-          :publishing-directory "~/code/jekyll-author/jekyll/"
-          :recursive t
-          :publishing-function org-html-publish-to-html
-          :headline-levels 4
-          :html-extension "html"
-          :body-only t ;; Only export section between <body> </body>
-    )
-    ("assets-jekyll-author"
-          :base-directory "~/code/jekyll-author/org/"
-          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|opus"
-          :publishing-directory "~/code/jekyll-author/jekyll/"
-          :recursive t
-          :publishing-function org-publish-attachment)
-
-    ("jeteitsworth.com" :components ("org-jekyll-author" "assets-jekyll-author"))))
-
-;; Access IRC -> Telegram Bridge
-(after! circe
-  (set-irc-server! "localhost"
-  `(:tls nil
-    :port 6667
-    :nick "jet"
-    :channels("#Owners-of-a-Petting-Zoo"))))
 
 ;; Custom timestamp function
 (defun now()
