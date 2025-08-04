@@ -1,15 +1,12 @@
+set nocompatible
+filetype plugin on
+
 set encoding=utf-8
-set scrolloff=11
 set belloff=all
-set number
-set relativenumber
-set tabstop=4 softtabstop=4
 set shiftwidth=4
-set expandtab
-set backspace=start
+set tabstop=4 softtabstop=4
+set backspace=indent,eol,start
 set nobackup
-set nowritebackup
-set linebreak
 
 "Install Plug
 let data_dir = '~/.vim'
@@ -23,17 +20,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'k4yt3x/ayu-vim-darker'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'mattn/vim-lsp-settings'
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'vimwiki/vimwiki'
 
-    " IA Writer Plugins
+    " Prose Plugins
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/limelight.vim'
     Plug 'reedes/vim-colors-pencil'
     Plug 'subnut/vim-iawriter'
+    Plug 'preservim/vim-pencil'
+    Plug 'preservim/vim-litecorrect'
 call plug#end()
 
 set termguicolors
@@ -41,15 +36,29 @@ let ayucolor="darker"
 colorscheme ayu
 let mapleader = " "
 
-"Remaps
+" Binds
 
-nnoremap <leader>pv :Vex<CR>
 nnoremap <leader><CR> :so ~/.vimrc<CR>
-nnoremap <C-p> :GFiles<CR>
-nnoremap <leader>pf :Files<CR>
-nnoremap <C-j> :cprev<CR>
-nnoremap <C-k> :cnext<CR>
 nnoremap <leader>\ :Iawriter<CR>:set background=dark<CR>
+nnoremap <leader>ba :Buffers<CR>
+nnoremap <leader>bk :bd<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :GFiles<CR>
+nnoremap <leader>pv :Vex<CR>
+nnoremap <leader>sc :set spell! spelllang=en_us<CR>
 nnoremap <leader>z g<C-g>:<C-U>echo v:statusmsg<CR>
 
+" Initialize plugins
+augroup pencil
+	autocmd!
+	autocmd FileType markdown,mkd,text call pencil#init({'wrap': 'soft'})
+									\| call litecorrect#init()
+augroup END
 
+" Abbreviations
+iabbrev @@ james@jamesteitsworth.com
+iabbrev d Danny
+
+"iabbrev <expr> ddd strftime('%Y-%m-%d %a %H:%M')

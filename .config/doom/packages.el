@@ -8,11 +8,8 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
-(package! org-alert)
 (package! nov)
 (package! ox-epub)
 (package! org-modern)
 (package! org-web-tools)
-(package! modus-themes)
-(package! org-pomodoro)
 (package! org-make-toc)
