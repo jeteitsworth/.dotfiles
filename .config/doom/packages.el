@@ -10,6 +10,4 @@
 ;; (package! some-package)
 (package! nov)
 (package! ox-epub)
-(package! org-modern)
 (package! org-web-tools)
-(package! org-make-toc)
