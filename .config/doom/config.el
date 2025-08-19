@@ -1,6 +1,6 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 (setq display-line-numbers-type t)
-
+(setq doom-font (font-spec :family "MesloLGLDZ Nerd Font" :size 14))
 ;; Org-stuff
 (setq org-directory "/mnt/z/Dropbox/org")
 (after! org
@@ -21,6 +21,9 @@
   (add-to-list 'auto-mode-alist
                '("\\.\\(?:OD[CFIGPST]\\|od[cfigpst]\\)\\'"
                  . doc-view-mode-maybe)))
+
+(use-package! org-bullets
+  :hook (org-mode . org-bullets-mode))
 
 ;; keybindings
 (map! :leader

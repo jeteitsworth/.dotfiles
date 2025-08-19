@@ -11,3 +11,4 @@
 (package! nov)
 (package! ox-epub)
 (package! org-web-tools)
+(package! org-bullets)
