@@ -1,6 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 (setq display-line-numbers-type t)
-(setq doom-font (font-spec :family "MesloLGLDZ Nerd Font" :size 14))
+(when (doom-font-exists-p "MesloLGLDZ Nerd Font")
+  (setq doom-font (font-spec :family "MesloLGLDZ Nerd Font" :size 14)))
 ;; Org-stuff
 (setq org-directory "/mnt/z/Dropbox/org")
 (after! org
@@ -25,8 +26,12 @@
 (use-package! org-bullets
   :hook (org-mode . org-bullets-mode))
 
+(use-package! org2blog
+  :ensure t)
+
 ;; keybindings
 (map! :leader
+      "-" #'help/insert-em-dash
       (:prefix ("J" . "JET Binds")
                :desc "Export Org to HTML"
                "e" #'org-html-export-to-html
@@ -37,4 +42,8 @@
                         "u" #'elfeed-update
                         )))
 
-
+(defun help/insert-em-dash ()
+  "Inserts an EM-DASH (not a HYPEN, not an N-DASH)"
+  (interactive)
+  (insert "—"))
+(global-set-key (kbd "C--") #'help/insert-em-dash)
