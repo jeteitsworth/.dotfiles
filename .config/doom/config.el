@@ -42,8 +42,15 @@
                         "u" #'elfeed-update
                         )))
 
+;; Custom functions
 (defun help/insert-em-dash ()
   "Inserts an EM-DASH (not a HYPEN, not an N-DASH)"
   (interactive)
   (insert "—"))
 (global-set-key (kbd "C--") #'help/insert-em-dash)
+
+;; org2blog
+(setq org2blog/wp-blog-alist
+      '(("James Teitsworth"
+         :url "https://jamesteitsworth.com/xmlrpc.php"
+         :username "jeteitsworth")))
