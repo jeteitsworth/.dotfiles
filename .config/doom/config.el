@@ -1,7 +1,8 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+(setq doom-theme 'doom-one)
 (setq display-line-numbers-type t)
 (when (doom-font-exists-p "MesloLGLDZ Nerd Font")
-  (setq doom-font (font-spec :family "MesloLGLDZ Nerd Font" :size 14)))
+  (setq doom-font (font-spec :family "MesloLGLDZ Nerd Font" :size 15)))
 ;; Org-stuff
 (setq org-directory "/mnt/z/Dropbox/org")
 (after! org
@@ -23,11 +24,14 @@
                '("\\.\\(?:OD[CFIGPST]\\|od[cfigpst]\\)\\'"
                  . doc-view-mode-maybe)))
 
-(use-package! org-bullets
-  :hook (org-mode . org-bullets-mode))
-
 (use-package! org2blog
   :ensure t)
+
+(setq org-modern-fold-stars '(("" . "") ("" . "") ("▷" . "▽") ("▹" . "▿") ("▸" . "▾")))
+
+(add-hook 'org-mode-hook
+          (lambda () (add-hook 'after-save-hook #'org-babel-tangle
+                          :append :local)))
 
 ;; keybindings
 (map! :leader
@@ -54,3 +58,17 @@
       '(("James Teitsworth"
          :url "https://jamesteitsworth.com/xmlrpc.php"
          :username "jeteitsworth")))
+
+;; Set org header sizes
+(custom-theme-set-faces!
+ 'doom-one
+ '(org-level-8 :inherit outline-3 :height 1.0)
+ '(org-level-7 :inherit outline-3 :height 1.0)
+ '(org-level-6 :inherit outline-3 :height 1.0)
+ '(org-level-5 :inherit outline-3 :height 1.0)
+ '(org-level-4 :inherit outline-3 :height 1.0)
+ '(org-level-4 :inherit outline-3 :height 1.0)
+ '(org-level-3 :inherit outline-3 :height 1.1)
+ '(org-level-2 :inherit outline-2 :height 1.3)
+ '(org-level-1 :inherit outline-1 :height 1.6)
+ '(org-document-title :height 1.8 :bold t :underline nil))

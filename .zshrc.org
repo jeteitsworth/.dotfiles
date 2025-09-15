@@ -1,7 +1,19 @@
+#+PROPERTY: header-args:zsh :tangle .zshrc
+
+Initialization code that may require console input (password prompts, [y/n]
+confirmations, etc.) must go above this block; everything else may go below.
+
+Enable Powerlevel10k instant prompt. This should stay close to the top of ~/.zshrc.
+
+#+BEGIN_SRC zsh
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+#+END_SRC
 
+Set homebrew specific settings based on whether we're running on Linux or Mac. Ignore if it's neither.
+
+#+BEGIN_SRC zsh
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -13,9 +25,14 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
   export PATH="/opt/homebrew/bin:$PATH"
 fi
+#+END_SRC
 
+To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+#+BEGIN_SRC zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#+END_SRC
 
+#+BEGIN_SRC zsh
 HISTFILE=$HOME/.zhistory
 SAVEHIST=1000
 HISTSIZE=999
@@ -26,7 +43,14 @@ setopt hist_verify
 
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
+#+END_SRC
 
+Aliases
+#+BEGIN_SRC zsh
 alias ls="eza --icons=always"
+#+END_SRC
 
+Path customizations
+#+BEGIN_SRC zsh
 export PATH="/home/james/bin:$PATH"
+#+END_SRC
