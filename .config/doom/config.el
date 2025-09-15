@@ -29,6 +29,10 @@
 
 (setq org-modern-fold-stars '(("" . "") ("" . "") ("▷" . "▽") ("▹" . "▿") ("▸" . "▾")))
 
+(use-package! vimrc-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode)))
+
 (add-hook 'org-mode-hook
           (lambda () (add-hook 'after-save-hook #'org-babel-tangle
                           :append :local)))

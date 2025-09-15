@@ -12,3 +12,4 @@
 (package! ox-epub)
 (package! org-web-tools)
 (package! org2blog)
+(package! vimrc-mode)

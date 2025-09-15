@@ -1,3 +1,6 @@
+#+PROPERTY: header-args:vimrc :tangle ~/.dotfiles/.vimrc
+* Basic Settings
+#+BEGIN_SRC vimrc
 set nocompatible
 filetype plugin on
 
@@ -8,13 +11,19 @@ set tabstop=4 softtabstop=4
 set backspace=indent,eol,start
 set nobackup
 let mapleader = " "
+#+END_SRC
 
+* Install Plug
+#+BEGIN_SRC vimrc
 let data_dir = '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+#+END_SRC
 
+* Install the plugins I use
+#+BEGIN_SRC vimrc
 call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
@@ -29,11 +38,17 @@ call plug#begin('~/.vim/plugged')
     Plug 'preservim/vim-pencil'
     Plug 'preservim/vim-litecorrect'
 call plug#end()
+#+END_SRC
 
+* Setup colors
+#+BEGIN_SRC vimrc
 set termguicolors
 let ayucolor="darker"
 colorscheme ayu
+#+END_SRC
 
+* Custom bindings
+#+BEGIN_SRC vimrc
 nnoremap <leader><CR> :so ~/.vimrc<CR>
 nnoremap <leader>\ :Iawriter<CR>:set background=dark<CR>
 nnoremap <leader>ba :Buffers<CR>
@@ -45,14 +60,21 @@ nnoremap <leader>fg :GFiles<CR>
 nnoremap <leader>pv :Vex<CR>
 nnoremap <leader>sc :set spell! spelllang=en_us<CR>
 nnoremap <leader>z g<C-g>:<C-U>echo v:statusmsg<CR>
+#+END_SRC
 
+* Initialize plugins
+#+BEGIN_SRC vimrc
 augroup pencil
 	autocmd!
 	autocmd FileType markdown,mkd,text call pencil#init({'wrap': 'soft'})
 									\| call litecorrect#init()
 augroup END
+#+END_SRC
 
+* Custom Abbreviations
+#+BEGIN_SRC vimrc
 iabbrev @@ james@jamesteitsworth.com
 iabbrev d Danny
 
 "iabbrev <expr> ddd strftime('%Y-%m-%d %a %H:%M')
+#+END_SRC
