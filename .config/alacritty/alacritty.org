@@ -1,0 +1,31 @@
+#+PROPERTY: HEADER-ARGS:toml :tangle (concat (file-name-sans-extension (buffer-file-name)) ".toml")
+* Set terminal theme
+#+BEGIN_SRC toml
+general.import = [
+	"~/.config/alacritty/themes/themes/gruvbox_dark.toml"
+]
+#+END_SRC
+
+* Set term color mode
+#+BEGIN_SRC toml
+[env]
+TERM = "xterm-256color"
+#+END_SRC
+
+* Configure the editor window
+#+BEGIN_SRC toml
+[window]
+padding.x = 10
+padding.y = 10
+
+opacity = 0.85
+blur = true
+
+option_as_alt = "Both"
+#+END_SRC
+* Font settings
+#+BEGIN_SRC toml
+[font]
+normal.family = "MesloLGS Nerd Font Mono"
+size = 15
+#+END_SRC
