@@ -30,3 +30,7 @@ bindkey '^[[B' history-search-forward
 alias ls="eza --icons=always"
 
 export PATH="/home/james/bin:$PATH"
+
+if [[ -f "${HOME}/machine.zsh" ]]; then
+  source "${HOME}/machine.zsh"
+fi

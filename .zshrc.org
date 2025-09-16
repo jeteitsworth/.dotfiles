@@ -58,7 +58,7 @@ export PATH="/home/james/bin:$PATH"
 Load machine specific configs that shouldn't be copied
 
 #+BEGIN_SRC zsh
-if [ -f "~/machine.zsh" ]; then
-  source ~/machine.zsh
+if [[ -f "${HOME}/machine.zsh" ]]; then
+  source "${HOME}/machine.zsh"
 fi
 #+END_SRC

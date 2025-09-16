@@ -8,7 +8,6 @@ TERM = "xterm-256color"
 [window]
 padding.x = 10
 padding.y = 10
-
 opacity = 0.85
 blur = true
 
@@ -17,3 +16,9 @@ option_as_alt = "Both"
 [font]
 normal.family = "MesloLGS Nerd Font Mono"
 size = 15
+
+[terminal]
+
+[terminal.shell]
+program = "/bin/zsh"
+args = ["--login"]
