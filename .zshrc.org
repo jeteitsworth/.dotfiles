@@ -95,6 +95,6 @@ Build the final paths with the priority being:
 2. Homebrew
 3. System paths
 
-#+BEGIN_SRC zsh :tangle .zshrc :noweb no-export
+#+BEGIN_SRC zsh :tangle .zshrc :noweb yes
 export PATH="<<scripts>>:$HBPATH/bin:$PATH"
 #+END_SRC
