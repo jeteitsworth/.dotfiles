@@ -17,7 +17,7 @@ fi
 * Environment
 ** Custom
 I keep my custom scripts in my user bin folder
-#+BEGIN_SRC zsh :noweb-ref scripts :noweb no-export
+#+BEGIN_SRC zsh :noweb-ref scripts
 $HOME/bin
 #+END_SRC
 ** Homebrew
@@ -25,7 +25,7 @@ Since I work on both ARM macs and linux, I need to know both homebrew paths.
 
 On ARM Macs that is:
 
-#+BEGIN_SRC zsh :noweb-ref macbrew :noweb no-export
+#+BEGIN_SRC zsh :noweb-ref macbrew
 /opt/homebrew
 #+END_SRC
 
@@ -37,7 +37,7 @@ On linux it's
 
 Let's use a variable for the homebrew path and set it based on the OS.
 
-#+BEGIN_SRC zsh :noweb strip-export :tangle .zshrc
+#+BEGIN_SRC zsh :noweb yes :tangle .zshrc
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   HBPATH=<<linuxbrew>>
 elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -95,6 +95,6 @@ Build the final paths with the priority being:
 2. Homebrew
 3. System paths
 
-#+BEGIN_SRC zsh :tangle .zshrc :noweb strip-export
+#+BEGIN_SRC zsh :tangle .zshrc :noweb yes
 export PATH="<<scripts>>:$HBPATH/bin:$PATH"
 #+END_SRC
