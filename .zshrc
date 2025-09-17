@@ -13,11 +13,11 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   HBPATH=/opt/homebrew
 fi
 
-source {"$HBPATH"}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HBPATH/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source {"$HBPATH"}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HBPATH/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source {"$HBPATH"}/share/powerlevel10k/powerlevel10k.zsh-theme
+source $HBPATH/share/powerlevel10k/powerlevel10k.zsh-theme
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -34,4 +34,4 @@ bindkey '^[[B' history-search-forward
 
 alias ls="eza --icons=always"
 
-export PATH="{$HOME}/bin:{$HBPATH}/bin:$PATH"
+export PATH="$HOME/bin:$HBPATH/bin:$PATH"
