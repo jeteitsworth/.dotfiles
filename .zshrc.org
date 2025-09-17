@@ -37,7 +37,7 @@ On linux it's
 
 Let's use a variable for the homebrew path and set it based on the OS.
 
-#+BEGIN_SRC zsh :noweb yes :tangle .zshrc
+#+BEGIN_SRC zsh :noweb strip-export :tangle .zshrc
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   HBPATH=<<linuxbrew>>
 elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -95,6 +95,6 @@ Build the final paths with the priority being:
 2. Homebrew
 3. System paths
 
-#+BEGIN_SRC zsh :tangle .zshrc :noweb yes
+#+BEGIN_SRC zsh :tangle .zshrc :noweb strip-export
 export PATH="<<scripts>>:$HBPATH/bin:$PATH"
 #+END_SRC
