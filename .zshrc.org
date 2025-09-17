@@ -1,38 +1,75 @@
-#+PROPERTY: header-args:zsh :tangle .zshrc
+* Boilerplate
+These are comments and setup code that I inherited from the default .zshrc after powerlevel10k install. I like to leave them in the file.
 
-Initialization code that may require console input (password prompts, [y/n]
-confirmations, etc.) must go above this block; everything else may go below.
+#+BEGIN_SRC zsh :tangle .zshrc
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
 
-Enable Powerlevel10k instant prompt. This should stay close to the top of ~/.zshrc.
+# Enable Powerlevel10k instant prompt. This should stay close to the top of ~/.zshrc.
 
-#+BEGIN_SRC zsh
+#+END_SRC
+
+#+BEGIN_SRC zsh :tangle .zshrc
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 #+END_SRC
+* Environment
+** Custom
+I keep my custom scripts in my user bin folder
+#+BEGIN_SRC zsh :noweb-ref scripts :noweb no-export
+{$HOME}/bin
+#+END_SRC
+** Homebrew
+Since I work on both ARM macs and linux, I need to know both homebrew paths.
 
-Set homebrew specific settings based on whether we're running on Linux or Mac. Ignore if it's neither.
+On ARM Macs that is:
+#+BEGIN_SRC zsh :noweb-ref macbrew :noweb no-export
+/opt/homebrew
+#+END_SRC
 
-#+BEGIN_SRC zsh
+On linux it's
+#+BEGIN_SRC zsh :noweb-ref linuxbrew
+/home/linuxbrew/.linuxbrew
+#+END_SRC
+
+Let's use a variable for the homebrew path and set it based on the OS.
+
+#+BEGIN_SRC zsh :noweb no-export :tangle .zshrc
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
-  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+  HBPATH=<<linuxbrew>>
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-  export PATH="/opt/homebrew/bin:$PATH"
+  HBPATH=<<macbrew>>
 fi
 #+END_SRC
 
-To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#+BEGIN_SRC zsh
+** Plugins
+Right now I'm installing the following plugins via homebrew
+1. [[https://github.com/zsh-users/zsh-autosuggestions][zsh-autosuggestions]]
+2. [[https://github.com/zsh-users/zsh-syntax-highlighting][zsh-syntax-highlighting]]
+3. [[https://github.com/romkatv/powerlevel10k][powerlevel10k: A Zsh theme]]
+
+So let's load the plugins from the share homebrew share directory
+#+BEGIN_SRC zsh :tangle .zshrc
+source {"$HBPATH"}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#+END_SRC
+#+BEGIN_SRC zsh :tangle .zshrc
+source {"$HBPATH"}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#+END_SRC
+#+BEGIN_SRC zsh :tangle .zshrc
+source {"$HBPATH"}/share/powerlevel10k/powerlevel10k.zsh-theme
+#+END_SRC
+*** Theme
+Powerlevel 10k prompts you through configuration. To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+
+#+BEGIN_SRC zsh :tangle .zshrc
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #+END_SRC
 
-#+BEGIN_SRC zsh
+* Misc Settings
+** History/Bindings
+Setting for bindings and history that I'll probably never change.
+#+BEGIN_SRC zsh :tangle .zshrc
 HISTFILE=$HOME/.zhistory
 SAVEHIST=1000
 HISTSIZE=999
@@ -45,14 +82,19 @@ bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 #+END_SRC
 
-Aliases
-#+BEGIN_SRC zsh
+* Aliases
+#+BEGIN_SRC zsh :tangle .zshrc
 alias ls="eza --icons=always"
 #+END_SRC
 
-Path customizations
-#+BEGIN_SRC zsh
-export PATH="/home/james/bin:$PATH"
+* Path
+Build the final paths with the priority being:
+1. My scripts
+2. Homebrew
+3. System paths
+
+#+BEGIN_SRC zsh :tangle .zshrc :noweb no-export
+export PATH="<<scripts>>:{$HBPATH}/bin:$PATH"
 #+END_SRC
 
 Load machine specific configs that shouldn't be copied

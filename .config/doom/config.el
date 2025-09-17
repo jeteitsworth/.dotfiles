@@ -3,6 +3,26 @@
 (setq display-line-numbers-type t)
 (when (doom-font-exists-p "MesloLGLDZ Nerd Font")
   (setq doom-font (font-spec :family "MesloLGLDZ Nerd Font" :size 15)))
+
+;; Custom functions
+(defun my/insert-em-dash ()
+  "Inserts an EM-DASH (not a HYPEN, not an N-DASH)"
+  (interactive)
+  (insert "—"))
+(global-set-key (kbd "C--") #'help/insert-em-dash)
+
+(defun my/org-insert-scene-properties ()
+  "Insert a property drawer for scene metadata"
+  (interactive)
+  (insert ":PROPERTIES:\n")
+  (insert ":TYPE: \n")
+  (insert ":POV: \n")
+  (insert ":GOAL: \n")
+  (insert ":ANTAGONIST: \n")
+  (insert ":CONFLICT_TYPE: \n")
+  (insert ":COMPLICATION/SETBACK: \n")
+  (insert ":END:\n"))
+
 ;; Org-stuff
 (setq org-directory "/mnt/z/Dropbox/org")
 (after! org
@@ -43,19 +63,15 @@
       (:prefix ("J" . "JET Binds")
                :desc "Export Org to HTML"
                "e" #'org-html-export-to-html
+               (:prefix ("o" . "Org")
+                        :desc "Insert Scene Properties"
+                        "s" #'my/org-insert-scene-properties)
                (:prefix ("r" . "RSS")
                         :desc "Elfeed"
                         "r" #'elfeed
                         :desc "Update Feeds"
                         "u" #'elfeed-update
                         )))
-
-;; Custom functions
-(defun help/insert-em-dash ()
-  "Inserts an EM-DASH (not a HYPEN, not an N-DASH)"
-  (interactive)
-  (insert "—"))
-(global-set-key (kbd "C--") #'help/insert-em-dash)
 
 ;; org2blog
 (setq org2blog/wp-blog-alist
@@ -66,12 +82,6 @@
 ;; Set org header sizes
 (custom-theme-set-faces!
  'doom-one
- '(org-level-8 :inherit outline-3 :height 1.0)
- '(org-level-7 :inherit outline-3 :height 1.0)
- '(org-level-6 :inherit outline-3 :height 1.0)
- '(org-level-5 :inherit outline-3 :height 1.0)
- '(org-level-4 :inherit outline-3 :height 1.0)
- '(org-level-4 :inherit outline-3 :height 1.0)
  '(org-level-3 :inherit outline-3 :height 1.1)
  '(org-level-2 :inherit outline-2 :height 1.3)
  '(org-level-1 :inherit outline-1 :height 1.6)

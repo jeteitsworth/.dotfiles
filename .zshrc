@@ -1,18 +1,23 @@
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+
+# Enable Powerlevel10k instant prompt. This should stay close to the top of ~/.zshrc.
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
-  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+  HBPATH=/home/linuxbrew/.linuxbrew
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-  export PATH="/opt/homebrew/bin:$PATH"
+  HBPATH=/opt/homebrew
 fi
+
+source {"$HBPATH"}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+source {"$HBPATH"}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source {"$HBPATH"}/share/powerlevel10k/powerlevel10k.zsh-theme
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -29,8 +34,4 @@ bindkey '^[[B' history-search-forward
 
 alias ls="eza --icons=always"
 
-export PATH="/home/james/bin:$PATH"
-
-if [[ -f "${HOME}/machine.zsh" ]]; then
-  source "${HOME}/machine.zsh"
-fi
+export PATH="{$HOME}/bin:{$HBPATH}/bin:$PATH"
