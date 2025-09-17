@@ -96,11 +96,3 @@ Build the final paths with the priority being:
 #+BEGIN_SRC zsh :tangle .zshrc :noweb no-export
 export PATH="<<scripts>>:{$HBPATH}/bin:$PATH"
 #+END_SRC
-
-Load machine specific configs that shouldn't be copied
-
-#+BEGIN_SRC zsh
-if [[ -f "${HOME}/machine.zsh" ]]; then
-  source "${HOME}/machine.zsh"
-fi
-#+END_SRC
